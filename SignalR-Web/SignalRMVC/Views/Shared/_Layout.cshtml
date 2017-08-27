@@ -16,6 +16,7 @@
         </div>
     </div>
     <div class="container body-content">
+        
         @RenderBody()
         <hr />
         <footer>
@@ -26,5 +27,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Scripts/hitCounter.js"></script>
 </body>
 </html>
