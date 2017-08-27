@@ -23,10 +23,17 @@ namespace SignalR.Droid
 
             var client = new Client("Android");
 
+            var layoutUser = FindViewById<LinearLayout>(Resource.Id.User);
+            var layoutChat = FindViewById<LinearLayout>(Resource.Id.Chat);
+
+            var inputUsr = FindViewById<EditText>(Resource.Id.UserName);
+            var buttonUsr = FindViewById<Button>(Resource.Id.ButtonName);
+
             var input = FindViewById<EditText>(Resource.Id.Input);
             var button = FindViewById<Button>(Resource.Id.Button);
             var messages = FindViewById<ListView>(Resource.Id.Messages);
 
+            var inputManagerUsr = (InputMethodManager)GetSystemService(InputMethodService);
             var inputManager = (InputMethodManager)GetSystemService(InputMethodService);
             var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, new List<string>());
 
@@ -34,20 +41,33 @@ namespace SignalR.Droid
 
             await client.Connect();
 
-            button.Click +=
+            buttonUsr.Click += delegate
+            {
+                inputManager.HideSoftInputFromWindow(input.WindowToken, HideSoftInputFlags.None);
 
-            //input.EditorAction +=
-              delegate
-              {
-                  inputManager.HideSoftInputFromWindow(input.WindowToken, HideSoftInputFlags.None);
+                if (string.IsNullOrEmpty(inputUsr.Text))
+                    return;
 
-                  if (string.IsNullOrEmpty(input.Text))
-                      return;
+                layoutUser.Visibility = ViewStates.Gone;
 
-                  client.Send(input.Text);
+                client.UserName = inputUsr.Text;
 
-                  input.Text = "";
-              };
+                layoutChat.Visibility = ViewStates.Visible;
+
+                inputUsr.Text = "";
+            };
+
+            button.Click += delegate
+               {
+                   inputManager.HideSoftInputFromWindow(input.WindowToken, HideSoftInputFlags.None);
+
+                   if (string.IsNullOrEmpty(input.Text))
+                       return;
+
+                   client.Send(input.Text);
+
+                   input.Text = "";
+               };
 
             client.OnMessageReceived +=
               (sender, message) => RunOnUiThread(() =>

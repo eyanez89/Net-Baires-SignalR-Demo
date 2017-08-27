@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "MVC";
+}
+
+<div class="container" style="padding: 15px">
+    <div class="row" id="userForm">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="username" type="text" class="form-control input-sm" placeholder="Ingrese su nombre" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-user">
+                                Send
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="chat" style="display:none;">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <span id="status" style="float:right">Disconnected</span>
+                </div>
+                <div>
+
+                    <div class="panel-body">
+                        <ul class="chat" id="messages"></ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Ingrese su mensaje..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                    Send
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Scripts/MVC/chat.js"></script>
+}

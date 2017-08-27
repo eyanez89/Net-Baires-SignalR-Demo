@@ -8,9 +8,6 @@ namespace SignalR.iOS
 	[Register ("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
     {
-        UIWindow window;
-        MyViewController viewController;
-
         public override UIWindow Window {
 			get;
 			set;
@@ -18,13 +15,6 @@ namespace SignalR.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
         {
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            viewController = new MyViewController();
-            window.RootViewController = viewController;
-
-            window.MakeKeyAndVisible();
-
             return true;
 		}
 	}
