@@ -57,14 +57,14 @@ namespace SignalR.Droid
                 inputUsr.Text = "";
             };
 
-            button.Click += delegate
+            button.Click += async delegate
                {
                    inputManager.HideSoftInputFromWindow(input.WindowToken, HideSoftInputFlags.None);
 
                    if (string.IsNullOrEmpty(input.Text))
                        return;
 
-                   client.Send(input.Text);
+                   await client.Send(input.Text);
 
                    input.Text = "";
                };

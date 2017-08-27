@@ -41,17 +41,20 @@ namespace SignalR.iOS
                 UserName.Text = "";
             };
 
-            Send.TouchUpInside += (object sender, EventArgs e) =>
+            Send.TouchUpInside += async (object sender, EventArgs e) =>
             {
                 if (string.IsNullOrEmpty(Message.Text))
                     return;
                 
-                _client.Send(Message.Text);
+                await _client.Send(Message.Text);
 
                 Message.Text = "";
             };
 
 
+            _client.OnMessageReceived +=
+              (sender, message) => 
+                MessagesList.Add(message);
         }
 
 		public override void DidReceiveMemoryWarning ()

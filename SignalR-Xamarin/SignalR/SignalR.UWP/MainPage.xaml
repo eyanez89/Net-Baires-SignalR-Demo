@@ -7,7 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <ProgressRing x:Name="Progress" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" Height="340" Width="340"/>
+        <Grid x:Name="GridLayout" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" x:Name="User">
+                <TextBox x:Name="UserName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+                <Button x:Name="Enter" Content="Ingresar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" x:Name="Chat" Visibility="Collapsed">
+                <TextBox x:Name="Message" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+                <Button x:Name="Send" Content="Enviar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            </StackPanel>
+            <ListView x:Name="Messages" HorizontalAlignment="Left" Height="558" Margin="10,72,0,0" VerticalAlignment="Top" Width="340"/>
+        </Grid>
     </Grid>
 </Page>

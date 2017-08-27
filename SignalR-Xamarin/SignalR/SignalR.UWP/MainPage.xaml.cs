@@ -25,6 +25,43 @@ namespace SignalR.UWP
         public MainPage()
         {
             this.InitializeComponent();
+
+            SetPage();
+        }
+
+        public async void SetPage()
+        {
+            var client = new Client("UWP");
+            
+            await client.Connect();
+            
+            Enter.Click += delegate
+            {
+                if (string.IsNullOrEmpty(UserName.Text))
+                    return;
+
+                User.Visibility = Visibility.Collapsed;
+                client.UserName = UserName.Text;
+                Chat.Visibility = Visibility.Visible;
+                UserName.Text = "";
+            };
+
+            Send.Click += async delegate
+            {
+                if (string.IsNullOrEmpty(Message.Text))
+                    return;
+
+                await client.Send(Message.Text);
+                Message.Text = "";
+            };
+
+            client.OnMessageReceived +=
+              async (sender, message) => await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                  Messages.Items.Add(message);
+              });
+
+            Progress.Visibility = Visibility.Collapsed;
+            GridLayout.Visibility = Visibility.Visible;
         }
     }
 }

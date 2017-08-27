@@ -25,7 +25,7 @@ namespace SignalR
         public async Task Connect()
         {
             await _connection.Start();
-
+            
             _proxy.On("receiveMessage", (string sender, string message, string from) =>
             {
                 OnMessageReceived?.Invoke(this, $"{sender} - from {from}: \n {message}");
@@ -34,9 +34,12 @@ namespace SignalR
             await Send("Connected");
         }
 
-        public Task Send(string message)
+        public async Task Send(string message)
         {
-            return _proxy.Invoke("sendMessage", UserName, message, _platform);
+            if(_connection.State != ConnectionState.Connected)
+                await _connection.Start();
+
+            await _proxy.Invoke("sendMessage", UserName, message, _platform);
         }
     }
 }
